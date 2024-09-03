@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presidential Debate Fact Check</title>
+    <style>
+        /* Basic styling for the video block area */
+        .video-container {
+            width: 80%; /* Adjust width as needed */
+            max-width: 800px; /* Max width for responsiveness */
+            margin: 0 auto; /* Center the block */
+            padding: 20px;
+            border: 2px solid #ddd; /* Border for visual separation */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+            background-color: #f9f9f9;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 450px; /* Adjust height as needed */
+            border: none; /* Remove default border */
+        }
+    </style>
+
+<body>
+    <h1>Watch Presidential Debate Live Stream</h1>
+    <div class="video-container">
+        <iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/Rus0ght1j34?si=l9zQ1mG_xK9bHcmC" 
+        title="YouTube video player" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+    </iframe>
+    </div>
+</body>
+
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 18px;
+        text-align: left;
+    }
+    table th, table td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+    }
+    table th {
+        background-color: #f2f2f2;
+    }
+    #message {
+        margin-top: 20px;
+        color: red;
+    }
+</style>
+</head>
+<body>
+<h1>Presidential Debate Fact Check</h1>
+<table id="data-table">
+    <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Party</th>
+            <th>Message</th>
+            <th>Validation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data rows will be inserted here dynamically -->
+    </tbody>
+</table>
+<div id="message"></div>
+
+<script>
+    function fetchData() {
+        fetch('http://localhost:3000/proxy-data')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json(); // Parse JSON response
+            })
+            .then(data => {
+                    console.log(data); // Debug: Log the full response to inspect its structure
+                    if (data && Array.isArray(data.items)) {
+                        const reversedItems = data.items.reverse(); // Reverse the array
+                        updateTable(reversedItems); // Update table with reversed data
+                    } else {
+                        document.getElementById('message').textContent = 'No items found in the response.';
+                    }
+                })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                document.getElementById('message').textContent = 'Error: ' + error.message; // Display error
+            });
+    }
+
+    // Function to update table with new data
+    function updateTable(items) {
+        const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = ''; // Clear existing rows
+
+        items.forEach(item => {
+            const row = tableBody.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            const cell3 = row.insertCell(2);
+            const cell4 = row.insertCell(3);
+            const cell5 = row.insertCell(4);
+
+            cell1.textContent = item.first_name;
+            cell2.textContent = item.last_name;
+            cell3.textContent = item.Party;
+            cell4.textContent = item.statement;
+            cell5.textContent = item.statement_validation_status;
+        });
+    }
+
+    // Polling interval to fetch updates every 10 seconds (10000 milliseconds)
+    setInterval(fetchData, 10000);
+
+    // Initial fetch
+    fetchData();
+</script>
+</body>
+
+</html>
