@@ -109,3 +109,28 @@ df = pd.DataFrame(result, index=[0])
 
 
 st.dataframe(df)
+
+
+response = {
+    "statement": "Former President Donald Trump cut overtime benefits for millions of workers.",
+    "isTrue": False,
+    "reason": "There is no substantial evidence supporting this claim."
+}
+
+col1, col2, col3 = st.columns([3,1,4])
+
+
+# Display information in the first column
+with col1:
+    st.subheader("Statement")
+    st.write(response["statement"])
+
+# Display information in the second column
+with col2:
+    st.subheader("Is True?")
+    st.write(response["isTrue"])
+
+# Display information in the third column
+with col3:
+    st.subheader("Reason")
+    st.write(response["reason"])
