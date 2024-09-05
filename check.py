@@ -84,11 +84,10 @@ def process_video_for_fact_checking(video_path):
 
 video_path = 'video.mp4'
 
-#result = process_video_for_fact_checking(video_path)
+
 response = fact_check_text("Former President Donald Trump cut overtime benefits for millions of workers.")
 result = json.loads(response)
-#print(result)
-#print("Fact-checking Result:")
+
 
 st.title("Start with a Video to Check")
 user_input = st.text_input("Enter an embedded video link:")
@@ -97,10 +96,7 @@ url = user_input
 st.title("Display of Your Video")
 #display debate video here 
 
-# YouTube video URL
-#youtube_url = "https://www.youtube.com/embed/Rus0ght1j34?si=l9zQ1mG_xK9bHcmC"  
 
-# Embed YouTube video in an iframe
 st.markdown(f"""
 <iframe width="560" height="315" src="{url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 """, unsafe_allow_html=True)
