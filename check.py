@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 from googlesearch import search
 import streamlit as st
 import pandas as pd
+import time
 
 openai.api_key = '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'
 client = OpenAI(api_key=openai.api_key)
@@ -109,6 +110,8 @@ update_fact_check_results(response)
 # Display the updated DataFrame
 st.dataframe(st.session_state.fact_check_results)
 
+
+
 # Layout for detailed information display
 col1, col2, col3 = st.columns([3, 1, 4])
 
@@ -128,17 +131,40 @@ if len(st.session_state.fact_check_results) > 0:
         st.subheader("Reason")
         st.write(latest_result["Reason"])
 
-# Create a test DataFrame with three columns
+# Create a test DataFrame with two columns for a vertical layout
 test_data = {
-    "Column 1": ["Row 1", "Row 2", "Row 3"],
-    "Column 2": ["Data A", "Data B", "Data C"],
-    "Column 3": ["Value X", "Value Y", "Value Z"]
+    "Attribute": ["Row 1", "Row 2", "Row 3"],
+    "Column 1": ["Data A", "Data B", "Data C"],
+    "Column 2": ["Value X", "Value Y", "Value Z"]
 }
 
 # Convert the dictionary to a DataFrame
 test_df = pd.DataFrame(test_data)
 
-# Display the test table under everything
-st.title("Test Table")
+# Display the test table in a vertical format
+st.title("Vertical Test Table")
 st.table(test_df)
 
+# Create a placeholder for the "live chat" simulation
+chat_placeholder = st.empty()
+
+# Initialize an empty DataFrame to simulate chat messages
+chat_data = pd.DataFrame(columns=["Time", "Message"])
+
+# Function to simulate adding new chat messages
+def add_chat_message(message):
+    global chat_data
+    new_row = {"Time": time.strftime("%H:%M:%S"), "Message": message}
+    chat_data = chat_data.append(new_row, ignore_index=True)
+    
+# Simulate adding new chat messages every few seconds
+for i in range(1, 21):  # Simulate 20 new messages
+    add_chat_message(f"New message {i}")
+    
+    # Update the chat display
+    with chat_placeholder:
+        st.write("### Live Chat")
+        st.table(chat_data)
+        
+    # Sleep to simulate time between new messages
+    time.sleep(1)
