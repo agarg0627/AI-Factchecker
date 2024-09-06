@@ -127,3 +127,18 @@ if len(st.session_state.fact_check_results) > 0:
     with col3:
         st.subheader("Reason")
         st.write(latest_result["Reason"])
+
+# Create a test DataFrame with three columns
+test_data = {
+    "Column 1": ["Row 1", "Row 2", "Row 3"],
+    "Column 2": ["Data A", "Data B", "Data C"],
+    "Column 3": ["Value X", "Value Y", "Value Z"]
+}
+
+# Convert the dictionary to a DataFrame
+test_df = pd.DataFrame(test_data)
+
+# Display the test table under everything
+st.title("Test Table")
+st.table(test_df)
+
