@@ -123,7 +123,7 @@ class MicrophoneStream:
             yield b"".join(data)
 
 
-openai.api_key = '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'
+openai.api_key = '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'
 client = OpenAI(api_key=openai.api_key)
 
 def search_google_news(query, num_results=5):
