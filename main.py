@@ -12,16 +12,10 @@ import sys
 import time
 
 from google.cloud import speech
+import pyaudio
 
 import streamlit as st
 import threading
-import queue
-import re
-import sys
-
-from google.cloud import speech
-
-import pyaudio
 
 # Audio recording parameters
 RATE = 16000
