@@ -1,0 +1,8 @@
+streamlit 
+openai 
+google-cloud-speech 
+PyAudio 
+pandas 
+beautifulsoup4 
+requests 
+googlesearch-python
